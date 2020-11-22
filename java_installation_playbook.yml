@@ -1,0 +1,6 @@
+---
+- hosts: all
+  roles:
+    - role: sharif.java
+      when: "ansible_os_family == 'RedHat'"
+      become: yes

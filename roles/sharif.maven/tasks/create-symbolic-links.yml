@@ -1,0 +1,24 @@
+---
+- name: install mvn link if link_state value isn't passed
+  become: yes
+  file:
+    state: "{{ link_state }}"
+    force: yes
+    src: '{{ maven_install_dir }}/apache-maven-{{ maven_version }}/bin/mvn'
+    dest: '/usr/local/bin/mvn'
+    owner: root
+    # Use group ID as group name varies by OS (e.g. root/wheel)
+    group: '0'
+    mode: 'u=rwx,go=rx'
+
+- name: install mvnDebug link if link_state value is not passed
+  become: yes
+  file:
+    state: "{{ link_state }}"
+    force: yes
+    src: '{{ maven_install_dir }}/apache-maven-{{ maven_version }}/bin/mvnDebug'
+    dest: '/usr/local/bin/mvnDebug'
+    owner: root
+    # Use group ID as group name varies by OS (e.g. root/wheel)
+    group: '0'
+    mode: 'u=rwx,go=rx'

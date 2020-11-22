@@ -1,0 +1,5 @@
+---
+- name: Install Java if shall_remove value is not passed.
+  yum:
+    name: "{{ java_packages }}"
+    autoremove: "{{ shall_remove }}"

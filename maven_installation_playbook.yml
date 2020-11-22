@@ -1,0 +1,6 @@
+---
+- hosts: all
+  roles:
+    - role: sharif.maven
+      become: yes
+
