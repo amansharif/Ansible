@@ -1,0 +1,33 @@
+---
+# tasks file for nodejs
+- name: Download the NodeSource Node.js repo addition bash script
+  become: yes
+  get_url:
+    url: https://rpm.nodesource.com/setup_{{node_major_version}}.x
+    dest: '/home/ec2-user'
+    owner: ec2-user
+    mode: '0754'
+  when: ansible_os_family == 'RedHat'
+
+- name: Execute the bash script
+  become: yes
+  command:
+    cmd: '/home/ec2-user/setup_{{node_major_version}}.x'
+  when: ansible_os_family == 'RedHat'
+
+- name: Installing the nodejs
+  become: yes
+  yum:
+    name: nodejs
+    state: '{{package_state}}'
+  when: ansible_os_family == 'RedHat'
+
+- name: Delete the bash script
+  become: yes
+  file:
+    name: setup_{{node_major_version}}.x
+    path: '/home/ec2-user'
+    state: absent
+  when: ansible_os_family == 'RedHat'
+
+- include_tasks: forever.yml

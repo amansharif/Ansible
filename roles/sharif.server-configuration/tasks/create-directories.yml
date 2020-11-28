@@ -1,0 +1,18 @@
+---
+- include_vars: users.yml
+- include_vars: directory.yml
+
+- name: Create the directories for app users
+  become: yes
+  file:
+    path: '/home/{{item[0].user_name}}/{{ item[1].dir_name }}'
+    owner: '{{item[0].user_name }}'
+    group: einsite_apps
+    state: '{{ directory_state }}'
+    mode: '0754'
+  when: '{{ item[0].use_sudo}} == False'
+  with_nested:
+    - '{{ users }}'
+    - '{{ directories }}' 
+
+

@@ -1,0 +1,4 @@
+---
+# defaults file for nodejs
+node_major_version: 14
+package_state: present

@@ -1,0 +1,11 @@
+---
+directories:
+  - dir_name: apps
+  - dir_name: backup
+  - dir_name: build
+  - dir_name: hanger
+  - dir_name: logs
+  - dir_name: scripts
+  - dir_name: server
+  - dir_name: source
+  - dir_name: tmp

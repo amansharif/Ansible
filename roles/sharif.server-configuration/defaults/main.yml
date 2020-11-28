@@ -1,0 +1,5 @@
+---
+# defaults file for create-user
+directory_state: directory
+environment: prod
+link_state: link

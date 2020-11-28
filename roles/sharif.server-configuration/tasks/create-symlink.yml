@@ -1,0 +1,11 @@
+---
+- include_vars: users.yml
+
+- name: Create tomcat symlink
+  become: yes
+  file:
+    src: /opt/apache-tomcat-8.0.38
+    path: '/home/{{ item.user_name }}/server/tomcat'
+    state: '{{ link_state }}'
+  when: '{{ item.use_sudo}} == False'
+  with_items: '{{users}}'

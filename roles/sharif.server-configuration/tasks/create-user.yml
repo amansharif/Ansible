@@ -1,0 +1,49 @@
+---
+- name: Make sure we have 'einsite_admins' group
+  group:
+    name: einsite_admins
+    state: present
+  become: yes
+
+- name: Make sure we have 'einsite_apps' group
+  group:
+    name: einsite_apps
+    system: yes
+    state: present
+  become: yes
+
+- name: Allow 'einsite_admins' group to have passwordless sudo
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    line: '%einsite_admins ALL=(ALL) NOPASSWD: ALL'
+    validate: 'visudo -cf %s'
+  become: yes
+
+- include_vars: users.yml
+    
+- name: Create admin users with respective home directories
+  user:
+    name: '{{ item.user_name }}'
+    shell: /bin/bash
+    createhome: yes
+    group: einsite_admins
+  when: '{{item.use_sudo}}==True'
+  with_items: '{{users}}'
+
+- name: Create app users with respective home directories
+  user:
+    name: '{{ item.user_name }}'
+    shell: /bin/bash
+    createhome: yes
+    group: einsite_apps
+    system: yes
+  when: '{{item.use_sudo}}==False'
+  with_items: '{{users}}'
+                
+- name: Setup | authorized key upload for users
+  authorized_key:
+    user: '{{ item.user_name }}'
+    key: "{{lookup('file', 'files/{{ item.user_name }}.pub')}}"
+  when: '{{item.use_sudo}} == True'
+  with_items: '{{users}}'

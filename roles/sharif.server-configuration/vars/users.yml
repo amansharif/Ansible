@@ -1,0 +1,9 @@
+---
+users:
+  - user_name: ml-tutor
+    use_sudo: no
+    artifact_name: jupyterlab-slim
+    git_repo_url: https://github.com/sharifulakhter/Machine-Learning-with-Jupyterlab-Slim.git
+    git_repo_dir: cv-insite-service
+  - user_name: sharif
+    use_sudo: yes

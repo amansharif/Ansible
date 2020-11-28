@@ -1,0 +1,6 @@
+---
+- name: Install forever
+  become: yes
+  command:
+    cmd: 'sudo npm install forever -g'
+  when: ansible_os_family == 'RedHat'

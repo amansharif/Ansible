@@ -1,0 +1,19 @@
+---
+- hosts: all
+  vars:
+    tomcat_version: 8.0.38
+    tomcat_permissions_production: False
+    tomcat_users:
+      - username: "tomcat"
+        password: "tomcat@123"
+        roles: "tomcat,admin,manager,manager-gui"
+      - username: "user1"
+        password: "user1@123"
+        roles: "tomcat"
+  roles:
+    - role: sharif.java
+    - role: sharif.maven
+    - role: sharif.tomcat
+    - role: nodejs_forever
+    - role: create-user
+  become: yes

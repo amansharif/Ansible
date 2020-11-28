@@ -1,0 +1,5 @@
+---
+- name: "Install node.js on remote hosts"
+  hosts: all
+  roles:
+    - role: nodejs_forever

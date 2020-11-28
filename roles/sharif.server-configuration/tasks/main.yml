@@ -1,0 +1,20 @@
+---
+- name: Add the create-user yml
+  include_tasks: create-user.yml
+  when: ansible_os_family == 'RedHat'
+  
+- name: Create directories for the user
+  include_tasks: create-directories.yml
+  when: ansible_os_family == 'RedHat'
+
+- name: Cloning the git repo
+  include_tasks: git-clone.yml
+  when: ansible_os_family == 'Redhat'
+
+- name: Setting up NewRelic
+  include_tasks: newrelic-setup.yml
+  when: ansible_os_family == 'RedHat'
+
+- name: Tomcat symlink creation
+  include_tasks: create-symlink.yml
+  when: ansible_os_family == 'RedHat'
