@@ -1,9 +1,9 @@
 ---
 - include_vars: users.yml
 
-- name: Clone the git repo
+- name: Clone the public git repo
   git:
     repo: '{{ item.git_repo_url }}'
-    dest: 'home/{{item.user_name}}/source/'
+    dest: '/home/{{item.user_name}}/source/'
   when: '{{ item.use_sudo}} == False'
   with_items: '{{users}}'
